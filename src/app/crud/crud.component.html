@@ -1,0 +1,53 @@
+<div class="card m-5 p-5">
+  <form [formGroup]="addDataForm" (ngSubmit)="addData()">
+    <div class="form-group">
+      <label for="firstName" class="label">First Name</label>
+      <input id="firstName" class="form-control" type="text" formControlName="firstName">
+      <div *ngIf="addDataForm.get('firstName')?.invalid && (addDataForm.get('firstName')?.dirty || addDataForm.get('firstName')?.touched)" class="text-danger">
+        First Name is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastName" class="label">Last Name</label>
+      <input id="lastName" class="form-control" type="text" formControlName="lastName">
+      <div *ngIf="addDataForm.get('lastName')?.invalid && (addDataForm.get('lastName')?.dirty || addDataForm.get('lastName')?.touched)" class="text-danger">
+        Last Name is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email" class="label">Email</label>
+      <input id="email" class="form-control" type="email" formControlName="email">
+      <div *ngIf="addDataForm.get('email')?.invalid && (addDataForm.get('email')?.dirty || addDataForm.get('email')?.touched)" class="text-danger">
+        Email is invalid
+      </div>
+    </div>
+    <div class="text-center mt-3">
+      <button class="btn btn-primary w-100" type="submit" [disabled]="addDataForm.invalid">{{ !isUpdateData ? 'Add Data' : 'Update Data' }}</button>
+    </div>
+  </form>
+</div>
+
+<div class="card p-5 m-5">
+  <table class="table border">
+    <thead>
+      <tr>
+        <th class="border" scope="col">Id</th>
+        <th class="border" scope="col">First name</th>
+        <th class="border" scope="col">Last name</th>
+        <th class="border" scope="col">Email</th>
+        <th class="border" scope="col">Delete</th>
+        <th class="border" scope="col">Update</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of AllData">
+        <td class="border">{{data.id}}</td>
+        <td class="border">{{data.firstName}}</td>
+        <td class="border">{{data.lastName}}</td>
+        <td class="border">{{data.email}}</td>
+        <td class="border"><button class="btn btn-danger w-100" (click)="deleteData(data.id)">delete</button></td>
+        <td class="border"><button class="btn btn-primary w-100" (click)="getDataById(data.id)">Update</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
